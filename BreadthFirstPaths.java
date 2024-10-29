@@ -55,11 +55,14 @@ public class BreadthFirstPaths {
     public Iterable<Integer> pathTo(int v) {
         validateVertex(v);
         if (!hasPathTo(v)) return null;
+        
         Deque<Integer> path = new ArrayDeque<>();
         int x;
-        for (x = v; distTo[x] != 0; x = edgeTo[x])
+        for (x = v; distTo[x] != 0; x = edgeTo[x]) {
             path.push(x);
+        }
         path.push(x);
+        
         return path;
     }
     
@@ -80,18 +83,16 @@ public class BreadthFirstPaths {
         
         int s=0;
         BreadthFirstPaths bfs = new BreadthFirstPaths(g, s);
-
-
+        
         for (int v = 0; v < g.V(); v++) {
             if (bfs.hasPathTo(v)) {
                 System.out.print(s + " to " + v + " : " + "(" + bfs.distTo(v) + ") pths: ");
-                for (int x : bfs.pathTo(v)) {
+                for(int x : bfs.pathTo(v)) {
                     if (x == s) System.out.print(x);
                     else        System.out.print("-" + x);
                 }
                 System.out.println();
             }
-
             else {
                 System.out.print(s + " to " + v + "(-):  not connected\n");
             }

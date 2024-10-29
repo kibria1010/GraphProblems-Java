@@ -52,13 +52,11 @@ public class Graph {
     }
         
     public void graphTraverse() {
-        Iterator<Integer> it;
+        
         for (int v = 0; v < vertices; v++) {
             System.out.print(v + ": ");
-            it = adj(v).iterator();
-            while (it.hasNext()) {
-                Integer next = it.next();
-                System.out.print(next + " ");
+            for (int w : adj(v)) {
+                System.out.print(w + " ");
             }
             System.out.println("");
         }
