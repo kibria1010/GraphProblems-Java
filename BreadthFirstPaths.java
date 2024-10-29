@@ -57,11 +57,11 @@ public class BreadthFirstPaths {
         if (!hasPathTo(v)) return null;
         
         Deque<Integer> path = new ArrayDeque<>();
-        int x;
-        for (x = v; distTo[x] != 0; x = edgeTo[x]) {
-            path.push(x);
+        while (distTo[v] != 0) {            
+            path.push(v);
+            v = edgeTo[v];
         }
-        path.push(x);
+        path.push(v);
         
         return path;
     }
@@ -77,8 +77,8 @@ public class BreadthFirstPaths {
          // TODO code application logic here
         Graph g = new Graph(5);
         g.addEdge(0, 1);
+        g.addEdge(1, 3);
         g.addEdge(1, 2);
-        g.addEdge(0, 2);
         g.addEdge(2, 3);
         
         int s=0;
