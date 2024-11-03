@@ -1,8 +1,7 @@
 package graphproblems;
 
 import java.util.ArrayDeque;
-import java.util.Deque;
-import java.util.Queue;
+import java.util.*;
 
 public class CC {
     private boolean[] marked;   // marked[v] = has vertex v been marked?
@@ -116,6 +115,7 @@ public class CC {
         System.out.println(m + " components");
 
         // compute list of vertices in each connected component
+        ///Queue using Deque
         Deque<Integer>[] components = new ArrayDeque[m];
         for (int i = 0; i < m; i++) {
             components[i] = new ArrayDeque<>();

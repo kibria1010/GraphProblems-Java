@@ -57,7 +57,7 @@ public class BreadthFirstPaths {
         if (!hasPathTo(v)) return null;
         
         Deque<Integer> path = new ArrayDeque<>();
-        while (distTo[v] != 0) {            
+        while (v != 0) {            
             path.push(v);
             v = edgeTo[v];
         }

@@ -4,12 +4,14 @@ package graphproblems;
 import java.io.*;
 import java.util.*;
 
-public class Graph {
-    
+public class Digraph {
+
+    private static final String NEWLINE = System.getProperty("line.separator");
     int vertices, edges;
     LinkedList<Integer>[] adj;
+    int[] indegree;
 
-       public Graph(int vertices) {
+    public Digraph(int vertices) {
         this.vertices = vertices;
         this.edges = 0;
 
@@ -17,9 +19,10 @@ public class Graph {
         for (int v = 0; v < vertices; v++) {
             adj[v] = new LinkedList<>();
         }
+        indegree = new int[vertices];
     }
 
-    public Graph() {
+    public Digraph() {
         BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
         try {
             System.out.println("Enter num of vertices: ");
@@ -40,10 +43,12 @@ public class Graph {
                 validateVertex(w);
                 addEdge(v, w);
             }
-        } catch (Exception e) { }
+            indegree = new int[vertices];
+        } catch (Exception e) {
+        }
     }
 
-    public Graph(Graph G) {
+    public Digraph(Graph G) {
         this.vertices = G.V();
         this.edges = G.E();
         if (vertices < 0) {
@@ -64,8 +69,9 @@ public class Graph {
                 adj[v].add(w);
             }
         }
+        indegree = new int[vertices];
     }
-    
+
     public int V() {
         return vertices;
     }
@@ -77,9 +83,10 @@ public class Graph {
     public void addEdge(int v, int w) {
         validateVertex(v);
         validateVertex(w);
-        edges++;
+        
         adj[v].add(w);
-        adj[w].add(v);
+        edges++;
+        indegree[w]++;
     }
 
     public Iterable<Integer> adj(int v) {
@@ -93,32 +100,39 @@ public class Graph {
             throw new IllegalArgumentException("vertex " + v + " is not between 0 and " + (vertices - 1));
         }
     }
-
-    public int degree(int v) {
+    
+       public int outdegree(int v) {
         validateVertex(v);
         return adj[v].size();
     }
-        
-    public void graphTraverse() {
-        
+
+    public int indegree(int v) {
+        validateVertex(v);
+        return indegree[v];
+    }
+
+    public String toString() {
+        StringBuilder s = new StringBuilder();
+        s.append(vertices + " vertices, " + edges + " edges " + NEWLINE);
         for (int v = 0; v < vertices; v++) {
-            System.out.print(v + ": ");
-            for (int w : adj(v)) {
-                System.out.print(w + " ");
+            s.append(String.format("%d: ", v));
+            for (int w : adj[v]) {
+                s.append(String.format("%d ", w));
             }
-            System.out.println("");
+            s.append(NEWLINE);
         }
+        return s.toString();
     }
 
     public static void main(String[] args) {
         // TODO code application logic here
-        Graph g = new Graph(3);
-        g.addEdge(0, 1);
+        Digraph g = new Digraph(4);
+        g.addEdge(0, 3);
         g.addEdge(1, 2);
-        g.addEdge(0, 2);
+        g.addEdge(1, 3);
         
-        System.out.println(g.vertices +" vertices, "+ g.edges + " edges.");
-        g.graphTraverse();
-        
+        System.out.println(g.toString());
+        System.out.println(g.indegree(3));
+        System.out.println("digraph");
     }
 }
