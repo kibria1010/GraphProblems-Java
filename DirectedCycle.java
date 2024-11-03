@@ -1,4 +1,4 @@
-package graphproblems;
+package depthfirstpaths;
 
 import java.util.Stack;
 

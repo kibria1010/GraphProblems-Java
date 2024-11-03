@@ -1,5 +1,4 @@
-package graphproblems;
-
+package depthfirstpaths;
 
 import java.io.*;
 import java.util.*;

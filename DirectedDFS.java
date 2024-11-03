@@ -1,4 +1,4 @@
-package graphproblems;
+package depthfirstpaths;
 
 public class DirectedDFS {
     private boolean[] marked;  // marked[v] = true iff v is reachable from source(s)
